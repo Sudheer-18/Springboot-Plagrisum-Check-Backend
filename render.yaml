@@ -1,7 +1,7 @@
 services:
   - type: web
     name: plagiarism-checker
-    env: docker
+    env: docker   # ✅ correct keyword is 'env', not 'environment'
     repo: https://github.com/Sudheer-18/Springboot-Plagrisum-Check-Backend
     region: asia
     branch: main

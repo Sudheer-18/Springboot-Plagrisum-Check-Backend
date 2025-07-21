@@ -1,26 +1,20 @@
-# Use Maven to build the application
+# Stage 1: Build the application
 FROM maven:3.9.6-eclipse-temurin-22-alpine AS build
-
 WORKDIR /app
 
-# Copy pom.xml and download dependencies first (for caching)
 COPY pom.xml .
 COPY .mvn .mvn
 COPY mvnw .
+RUN chmod +x mvnw
 RUN ./mvnw dependency:go-offline
 
-# Copy source and build
 COPY src ./src
-RUN ./mvnw package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
-# Final image using JDK only
+# Stage 2: Run the application
 FROM eclipse-temurin:22-jdk-alpine
-
 WORKDIR /app
-
-# Copy jar from build stage
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
-
 ENTRYPOINT ["java", "-jar", "app.jar"]

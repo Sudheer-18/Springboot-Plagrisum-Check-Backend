@@ -2,7 +2,7 @@ services:
   - type: web
     name: plagiarism-checker
     env: docker
-    repo: https://github.com/Sudheer-18/Sprint--boot-plagarisumchecker
+    repo: https://github.com/Sudheer-18/Springboot-Plagrisum-Check-Backend
     region: asia
     branch: main
     dockerfilePath: Dockerfile
